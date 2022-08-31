@@ -1,6 +1,5 @@
 package com.example.imageloader
 
-import androidx.room.util.copy
 import javax.inject.Inject
 
 class InsertImagesUseCase @Inject constructor(private val imageRepository: ImageRepository) {
@@ -12,8 +11,6 @@ class InsertImagesUseCase @Inject constructor(private val imageRepository: Image
         notInsertedWithIndex.forEach {
             notInsertedItems.add(list[it.index].copy(isNewItem = false, existedItem = true, isSoftDeleted = false))
         }
-        if (notInsertedItems.size>0)
-        notInsertedItems[0].stats.dev = 5
         imageRepository.updateAllImages(notInsertedItems)
         return insertStatus
     }

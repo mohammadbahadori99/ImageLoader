@@ -13,7 +13,7 @@ interface ImageDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAllImages(list: List<ImageData>): List<Long>
 
-    @Query("UPDATE image_data SET isSoftDeleted = 1")
+    @Query("UPDATE image_data SET isSoftDeleted = 1 , isNewItem = 0")
     suspend fun setSoftDeleteTrue()
 
     @Update(onConflict = OnConflictStrategy.REPLACE)

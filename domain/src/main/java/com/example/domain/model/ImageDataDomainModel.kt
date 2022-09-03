@@ -1,18 +1,12 @@
-package com.example.imageloader
+package com.example.domain.model
 
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import kotlinx.serialization.Serializable
 
-@Serializable
-data class MyResponse(
-    val files: List<ImageData>,
+data class MyResponseDomainModel(
+    val files: List<ImageDataDomainModel>,
     val status: String
 )
 
-@Serializable
-data class Stats(
+data class StatsDomainModel(
     val atime: String,
     val atimeMs: Long,
     val birthtime: String,
@@ -33,15 +27,9 @@ data class Stats(
     val uid: Int
 )
 
-@Entity (tableName = "image_data", primaryKeys = ["path"])
-@Serializable
-data class ImageData(
-
+data class ImageDataDomainModel(
     val path: String,
-
-    @Embedded
-    val stats: Stats,
-
+    val stats: StatsDomainModel,
     val isSoftDeleted: Boolean = false,
     var existedItem: Boolean = false,
     var isModified: Boolean = false,

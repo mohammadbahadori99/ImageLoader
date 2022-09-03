@@ -1,5 +1,6 @@
-package com.example.imageloader
+package com.example.data.datasource.di
 
+import com.example.data.datasource.remote.WebService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

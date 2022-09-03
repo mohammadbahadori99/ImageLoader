@@ -1,9 +1,10 @@
-package com.example.imageloader
+package com.example.data.datasource.di
 
 import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.example.data.datasource.ImageDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

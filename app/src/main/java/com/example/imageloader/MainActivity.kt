@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-    private fun adapterOnClick(imageData: ImageData) {
+    private fun adapterOnClick(imageData: ImageDataView) {
         Toast.makeText(this, imageData.path , Toast.LENGTH_LONG).show()
     }
 

@@ -10,17 +10,17 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class ImageDataAdapter(private val onClick: (ImageData) -> Unit) :
-    ListAdapter<ImageData, ImageDataAdapter.ImageDataViewHolder>(FlowerDiffCallback) {
+class ImageDataAdapter(private val onClick: (ImageDataView) -> Unit) :
+    ListAdapter<ImageDataView, ImageDataAdapter.ImageDataViewHolder>(FlowerDiffCallback) {
 
 
-    class ImageDataViewHolder(itemView: View, val onClick: (ImageData) -> Unit) :
+    class ImageDataViewHolder(itemView: View, val onClick: (ImageDataView) -> Unit) :
         RecyclerView.ViewHolder(itemView) {
-        private val tvIsModified: TextView = itemView.findViewById(R.id.tv_isModified)
+        private val tvIsModified: TextView = itemView.findViewById(R.id.tv_isModified_title)
         private val tvIsDeleted: TextView = itemView.findViewById(R.id.tv_isDeleted)
         private val tvIsNews: TextView = itemView.findViewById(R.id.tv_isNew)
         private val imageView: ImageView = itemView.findViewById(R.id.iv_image)
-        private var imageData: ImageData? = null
+        private var imageData: ImageDataView? = null
 
         init {
             itemView.setOnClickListener {
@@ -30,9 +30,13 @@ class ImageDataAdapter(private val onClick: (ImageData) -> Unit) :
             }
         }
 
-        fun bind(data: ImageData) {
+        fun bind(data: ImageDataView) {
             imageData = data
-            tvIsModified.text = data.isModified.toString()
+            if (data.isModified) {
+                tvIsModified.text = imageView.context.resources.getString(R.string.label_isModified)
+            } else {
+                tvIsModified.visibility = View.GONE
+            }
             tvIsDeleted.text = data.isSoftDeleted.toString()
             tvIsNews.text = data.isNewItem.toString()
             Glide.with(tvIsModified.context).load(data.path).into(imageView);
@@ -53,12 +57,12 @@ class ImageDataAdapter(private val onClick: (ImageData) -> Unit) :
 }
 
 
-object FlowerDiffCallback : DiffUtil.ItemCallback<ImageData>() {
-    override fun areItemsTheSame(oldItem: ImageData, newItem: ImageData): Boolean {
+object FlowerDiffCallback : DiffUtil.ItemCallback<ImageDataView>() {
+    override fun areItemsTheSame(oldItem: ImageDataView, newItem: ImageDataView): Boolean {
         return oldItem == newItem
     }
 
-    override fun areContentsTheSame(oldItem: ImageData, newItem: ImageData): Boolean {
+    override fun areContentsTheSame(oldItem: ImageDataView, newItem: ImageDataView): Boolean {
         return oldItem.hashCode() == newItem.hashCode()
     }
 }
